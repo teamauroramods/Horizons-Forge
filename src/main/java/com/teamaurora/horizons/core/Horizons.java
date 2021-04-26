@@ -1,6 +1,9 @@
 package com.teamaurora.horizons.core;
 
 import com.minecraftabnormals.abnormals_core.core.util.registry.RegistryHelper;
+import com.teamaurora.horizons.core.other.HorizonsData;
+import com.teamaurora.horizons.core.registry.HorizonsBiomes;
+import com.teamaurora.horizons.core.registry.HorizonsSurfaceBuilders;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.ModLoadingContext;
@@ -11,7 +14,9 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-@Mod(Horizons.MODID)
+import static com.teamaurora.horizons.core.Horizons.MODID;
+
+@Mod(MODID)
 public class Horizons
 {
     public static final String MODID = "horizons";
@@ -28,7 +33,11 @@ public class Horizons
 
     private void commonSetup(final FMLCommonSetupEvent event) {
         event.enqueueWork(() -> {
-
+            HorizonsSurfaceBuilders.Configured.registerConfiguredSurfaceBuilders();
+            HorizonsBiomes.registerBiomesToDictionary();
+            HorizonsBiomes.addBiomeTypes();
+            HorizonsBiomes.addHillBiomes();
+            HorizonsData.registerCompostables();
         });
     }
 }
