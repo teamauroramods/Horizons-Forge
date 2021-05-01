@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "axis=y": {
+      "model": "horizons:block/stripped_redwood_log"
+    },
+    "axis=z": {
+      "model": "horizons:block/stripped_redwood_log",
+      "x": 90
+    },
+    "axis=x": {
+      "model": "horizons:block/stripped_redwood_log",
+      "x": 90,
+      "y": 90
+    }
+  }
+}

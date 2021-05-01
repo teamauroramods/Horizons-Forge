@@ -1,0 +1,6 @@
+{
+  "parent": "block/leaves",
+  "textures": {
+    "all": "horizons:block/redwood_leaves"
+  }
+}

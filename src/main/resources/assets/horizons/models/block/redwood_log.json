@@ -1,0 +1,7 @@
+{
+  "parent": "block/cube_column",
+  "textures": {
+    "end": "horizons:block/redwood_log_top",
+    "side": "horizons:block/redwood_log"
+  }
+}
