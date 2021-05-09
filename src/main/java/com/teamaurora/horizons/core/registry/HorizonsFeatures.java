@@ -6,12 +6,17 @@ import com.teamaurora.horizons.common.world.gen.feature.RedwoodFeature;
 import com.teamaurora.horizons.common.world.gen.treedecorator.RedwoodBushTreeDecorator;
 import com.teamaurora.horizons.core.Horizons;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.LeavesBlock;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.util.registry.WorldGenRegistries;
+import net.minecraft.world.gen.Heightmap;
 import net.minecraft.world.gen.blockstateprovider.SimpleBlockStateProvider;
 import net.minecraft.world.gen.feature.*;
 import net.minecraft.world.gen.foliageplacer.BlobFoliagePlacer;
+import net.minecraft.world.gen.foliageplacer.BushFoliagePlacer;
+import net.minecraft.world.gen.placement.AtSurfaceWithExtraConfig;
+import net.minecraft.world.gen.placement.Placement;
 import net.minecraft.world.gen.treedecorator.TreeDecoratorType;
 import net.minecraft.world.gen.trunkplacer.StraightTrunkPlacer;
 import net.minecraftforge.fml.RegistryObject;
@@ -44,6 +49,13 @@ public class HorizonsFeatures {
                 new StraightTrunkPlacer(0, 0, 0),
                 new TwoLayerFeature(0, 0, 0)
         )).setIgnoreVines().setDecorators(ImmutableList.of(RedwoodBushTreeDecorator.DECORATOR)).build();
+
+        public static final BaseTreeFeatureConfig REDWOOD_BUSH_CONFIG = (new BaseTreeFeatureConfig.Builder(
+                new SimpleBlockStateProvider(BlockStates.REDWOOD_LOG),
+                new SimpleBlockStateProvider(BlockStates.REDWOOD_LEAVES),
+                new BushFoliagePlacer(FeatureSpread.func_242252_a(2),FeatureSpread.func_242252_a(1), 2),
+                new StraightTrunkPlacer(1, 0, 0), new TwoLayerFeature(0, 0, 0)
+        )).func_236702_a_(Heightmap.Type.MOTION_BLOCKING_NO_LEAVES).build();
     }
 
     public static final class Configured {
@@ -51,6 +63,10 @@ public class HorizonsFeatures {
         public static final ConfiguredFeature<BaseTreeFeatureConfig, ?> LARGE_REDWOOD = LARGE_REDWOOD_TREE.get().withConfiguration(Configs.REDWOOD_TREE_CONFIG);
         public static final ConfiguredFeature<BaseTreeFeatureConfig, ?> REDWOOD_SAPLING = REDWOOD_TREE_SAPLING.get().withConfiguration(Configs.REDWOOD_TREE_CONFIG);
         public static final ConfiguredFeature<BaseTreeFeatureConfig, ?> LARGE_REDWOOD_SAPLING = LARGE_REDWOOD_TREE_SAPLING.get().withConfiguration(Configs.REDWOOD_TREE_CONFIG);
+
+        public static final ConfiguredFeature<?, ?> REDWOOD_BUSH = Feature.TREE.withConfiguration(Configs.REDWOOD_BUSH_CONFIG);
+
+        public static final ConfiguredFeature<?, ?> TREES_REDWOOD = Feature.RANDOM_SELECTOR.withConfiguration(new MultipleRandomFeatureConfig(ImmutableList.of(REDWOOD_BUSH.withChance(0.4F), LARGE_REDWOOD.withChance(0.325F)), REDWOOD)).withPlacement(Features.Placements.HEIGHTMAP_PLACEMENT).withPlacement(Placement.COUNT_EXTRA.configure(new AtSurfaceWithExtraConfig(17, 0.2F, 1)));
 
         private static <FC extends IFeatureConfig> void register(String name, ConfiguredFeature<FC, ?> configuredFeature) {
             Registry.register(WorldGenRegistries.CONFIGURED_FEATURE, new ResourceLocation(Horizons.MODID, name), configuredFeature);
@@ -61,6 +77,10 @@ public class HorizonsFeatures {
             register("large_redwood", LARGE_REDWOOD);
             register("redwood_sapling", REDWOOD_SAPLING);
             register("large_redwood_sapling", LARGE_REDWOOD_SAPLING);
+
+            register("redwood_bush", REDWOOD_BUSH);
+
+            register("trees_redwood", TREES_REDWOOD);
         }
     }
 }

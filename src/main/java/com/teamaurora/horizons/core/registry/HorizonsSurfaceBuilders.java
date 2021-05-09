@@ -1,6 +1,7 @@
 package com.teamaurora.horizons.core.registry;
 
 import com.teamaurora.horizons.common.world.gen.surfacebuilders.AtacamaSurfaceBuilder;
+import com.teamaurora.horizons.common.world.gen.surfacebuilders.RedwoodSurfaceBuilder;
 import com.teamaurora.horizons.core.Horizons;
 import net.minecraft.block.Blocks;
 import net.minecraft.util.ResourceLocation;
@@ -16,10 +17,12 @@ import net.minecraftforge.fml.common.Mod;
 @Mod.EventBusSubscriber(modid = Horizons.MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class HorizonsSurfaceBuilders {
     public static final SurfaceBuilder<SurfaceBuilderConfig> ATACAMA = new AtacamaSurfaceBuilder(SurfaceBuilderConfig.field_237203_a_);
+    public static final SurfaceBuilder<SurfaceBuilderConfig> REDWOOD = new RedwoodSurfaceBuilder(SurfaceBuilderConfig.field_237203_a_);
 
     @SubscribeEvent
     public static void registerSurfaceBuilders(RegistryEvent.Register<SurfaceBuilder<?>> event) {
         event.getRegistry().register(ATACAMA.setRegistryName(Horizons.MODID, "atacama"));
+        event.getRegistry().register(REDWOOD.setRegistryName(Horizons.MODID, "redwood"));
     }
 
     public static final class Configs {
@@ -28,6 +31,7 @@ public class HorizonsSurfaceBuilders {
 
     public static final class Configured {
         public static final ConfiguredSurfaceBuilder<SurfaceBuilderConfig> ATACAMA = HorizonsSurfaceBuilders.ATACAMA.func_242929_a(Configs.ATACAMA);
+        public static final ConfiguredSurfaceBuilder<SurfaceBuilderConfig> REDWOOD = HorizonsSurfaceBuilders.REDWOOD.func_242929_a(SurfaceBuilder.GRASS_DIRT_GRAVEL_CONFIG);
 
         private static <SC extends ISurfaceBuilderConfig> void register(String key, ConfiguredSurfaceBuilder<SC> builder) {
             WorldGenRegistries.register(WorldGenRegistries.CONFIGURED_SURFACE_BUILDER, new ResourceLocation(Horizons.MODID, key), builder);
@@ -35,6 +39,7 @@ public class HorizonsSurfaceBuilders {
 
         public static void registerConfiguredSurfaceBuilders() {
             register("atacama", ATACAMA);
+            register("redwood", REDWOOD);
         }
     }
 }

@@ -18,17 +18,22 @@ public class HorizonsBiomes {
     public static final BiomeSubRegistryHelper.KeyedBiome ATACAMA_DESERT = HELPER.createBiome("atacama_desert", ()->makeAtacamaBiome(0.1F, 0.2F));
     public static final BiomeSubRegistryHelper.KeyedBiome ATACAMA_PLATEAU = HELPER.createBiome("atacama_plateau", ()->makeAtacamaBiome(1.5F, 0.025F));
 
+    public static final BiomeSubRegistryHelper.KeyedBiome REDWOOD_FOREST = HELPER.createBiome("redwood_forest", ()->makeRedwoodForestBiome(0.15F, 0.2F));
+
     public static void addHillBiomes() {
         BiomeUtil.addHillBiome(ATACAMA_DESERT.getKey(), Pair.of(ATACAMA_PLATEAU.getKey(), 1));
     }
 
     public static void registerBiomesToDictionary() {
-        BiomeManager.addBiome(BiomeManager.BiomeType.DESERT, new BiomeManager.BiomeEntry(ATACAMA_DESERT.getKey(), 2));
+        //BiomeManager.addBiome(BiomeManager.BiomeType.DESERT, new BiomeManager.BiomeEntry(ATACAMA_DESERT.getKey(), 2));
+        BiomeManager.addBiome(BiomeManager.BiomeType.WARM, new BiomeManager.BiomeEntry(REDWOOD_FOREST.getKey(), 4));
     }
 
     public static void addBiomeTypes() {
         BiomeDictionary.addTypes(ATACAMA_DESERT.getKey(), BiomeDictionary.Type.HOT, BiomeDictionary.Type.SPARSE, BiomeDictionary.Type.DRY, BiomeDictionary.Type.SANDY, BiomeDictionary.Type.OVERWORLD);
         BiomeDictionary.addTypes(ATACAMA_PLATEAU.getKey(), BiomeDictionary.Type.HOT, BiomeDictionary.Type.SPARSE, BiomeDictionary.Type.DRY, BiomeDictionary.Type.PLATEAU, BiomeDictionary.Type.SANDY, BiomeDictionary.Type.OVERWORLD);
+
+        BiomeDictionary.addTypes(REDWOOD_FOREST.getKey(), BiomeDictionary.Type.DENSE, BiomeDictionary.Type.WET, BiomeDictionary.Type.LUSH, BiomeDictionary.Type.FOREST, BiomeDictionary.Type.OVERWORLD);
     }
 
     private static Biome makeAtacamaBiome(float depth, float scale) {
@@ -49,6 +54,27 @@ public class HorizonsBiomes {
                 .withMobSpawnSettings(new MobSpawnInfo.Builder().copy())
                 .withGenerationSettings((new BiomeGenerationSettings.Builder())
                         .withSurfaceBuilder(HorizonsSurfaceBuilders.Configured.ATACAMA)
+                        .build()).build();
+    }
+
+    private static Biome makeRedwoodForestBiome(float depth, float scale) {
+        return (new Biome.Builder())
+                .precipitation(Biome.RainType.RAIN)
+                .category(Biome.Category.FOREST)
+                .depth(depth)
+                .scale(scale)
+                .temperature(0.75F)
+                .downfall(0.9F)
+                .setEffects((new BiomeAmbience.Builder())
+                        .setWaterColor(4159204)
+                        .setWaterFogColor(329011)
+                        .setFogColor(12638463)
+                        .withSkyColor(getSkyColorWithTemperatureModifier(0.65F))
+                        .setMoodSound(MoodSoundAmbience.DEFAULT_CAVE)
+                        .build())
+                .withMobSpawnSettings(new MobSpawnInfo.Builder().copy())
+                .withGenerationSettings((new BiomeGenerationSettings.Builder())
+                        .withSurfaceBuilder(HorizonsSurfaceBuilders.Configured.REDWOOD)
                         .build()).build();
     }
 
