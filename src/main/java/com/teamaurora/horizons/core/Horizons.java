@@ -3,6 +3,7 @@ package com.teamaurora.horizons.core;
 import com.minecraftabnormals.abnormals_core.core.util.registry.RegistryHelper;
 import com.teamaurora.horizons.core.other.HorizonsData;
 import com.teamaurora.horizons.core.registry.HorizonsBiomes;
+import com.teamaurora.horizons.core.registry.HorizonsFeatures;
 import com.teamaurora.horizons.core.registry.HorizonsSurfaceBuilders;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -28,11 +29,15 @@ public class Horizons
 
         REGISTRY_HELPER.register(eventBus);
 
+        HorizonsFeatures.FEATURES.register(eventBus);
+        HorizonsFeatures.TREE_DECORATORS.register(eventBus);
+
         eventBus.addListener(this::commonSetup);
     }
 
     private void commonSetup(final FMLCommonSetupEvent event) {
         event.enqueueWork(() -> {
+            HorizonsFeatures.Configured.registerConfiguredFeatures();
             HorizonsSurfaceBuilders.Configured.registerConfiguredSurfaceBuilders();
             HorizonsBiomes.registerBiomesToDictionary();
             HorizonsBiomes.addBiomeTypes();
