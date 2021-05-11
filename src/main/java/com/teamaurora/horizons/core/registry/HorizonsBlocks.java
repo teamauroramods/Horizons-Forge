@@ -5,6 +5,8 @@ import com.minecraftabnormals.abnormals_core.common.blocks.wood.AbnormalsLogBloc
 import com.minecraftabnormals.abnormals_core.common.blocks.wood.AbnormalsSaplingBlock;
 import com.minecraftabnormals.abnormals_core.common.blocks.wood.StrippedLogBlock;
 import com.minecraftabnormals.abnormals_core.core.util.registry.BlockSubRegistryHelper;
+import com.teamaurora.horizons.common.block.BlackberryBushBlock;
+import com.teamaurora.horizons.common.block.BlackberryPipsBlock;
 import com.teamaurora.horizons.common.block.BrittlePhaceliaBlock;
 import com.teamaurora.horizons.common.block.NotBrokenLeavesBlock;
 import com.teamaurora.horizons.common.block.trees.RedwoodTree;
@@ -36,6 +38,8 @@ public class HorizonsBlocks {
     public static final RegistryObject<Block> REDWOOD_LEAVES = HELPER.createBlock("redwood_leaves", ()->new NotBrokenLeavesBlock(AbstractBlock.Properties.create(Material.LEAVES).hardnessAndResistance(0.2F).tickRandomly().sound(SoundType.PLANT).notSolid().setAllowsSpawn((BlockState state, IBlockReader reader, BlockPos pos, EntityType<?> entity)->(entity == EntityType.OCELOT || entity == EntityType.PARROT)).setSuffocates((BlockState state, IBlockReader reader, BlockPos pos)->false).setBlocksVision((BlockState state, IBlockReader reader, BlockPos pos)->false)), ItemGroup.DECORATIONS);
     public static final RegistryObject<Block> REDWOOD_SAPLING = HELPER.createBlock("redwood_sapling", ()->new AbnormalsSaplingBlock(new RedwoodTree(), Block.Properties.from(Blocks.OAK_SAPLING)), ItemGroup.DECORATIONS);
 
+    public static final RegistryObject<Block> BLACKBERRY_BUSH = HELPER.createBlockNoItem("blackberry_bush", ()->new BlackberryBushBlock(AbstractBlock.Properties.from(Blocks.SWEET_BERRY_BUSH)));
+    public static final RegistryObject<Block> BLACKBERRY_PIPS = HELPER.createBlockNoItem("blackberry_pips", ()->new BlackberryPipsBlock(AbstractBlock.Properties.from(Blocks.SWEET_BERRY_BUSH)));
 
     static class Properties {
         public static final AbstractBlock.Properties SAND = AbstractBlock.Properties.from(Blocks.SAND);

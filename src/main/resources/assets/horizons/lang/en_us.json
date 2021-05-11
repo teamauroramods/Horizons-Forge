@@ -7,5 +7,10 @@
   "block.horizons.redwood_log": "Redwood Log",
   "block.horizons.stripped_redwood_log": "Stripped Redwood Log",
   "block.horizons.redwood_leaves": "Redwood Leaves",
-  "block.horizons.redwood_sapling": "Redwood Sapling"
+  "block.horizons.redwood_sapling": "Redwood Sapling",
+
+  "block.horizons.blackberry_bush": "Blackberry Bush",
+  "block.horizons.blackberry_pips": "Blackberry Pips",
+  "item.horizons.blackberry": "Blackberry",
+  "item.horizons.blackberry_pips": "Blackberry Pips"
 }

@@ -1,16 +1,20 @@
 package com.teamaurora.horizons.core.registry;
 
 import com.google.common.collect.ImmutableList;
+import com.google.common.collect.ImmutableSet;
+import com.teamaurora.horizons.common.block.BlackberryBushBlock;
 import com.teamaurora.horizons.common.world.gen.feature.BigRedwoodFeature;
 import com.teamaurora.horizons.common.world.gen.feature.RedwoodFeature;
 import com.teamaurora.horizons.common.world.gen.treedecorator.RedwoodBushTreeDecorator;
 import com.teamaurora.horizons.core.Horizons;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
 import net.minecraft.block.LeavesBlock;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.util.registry.WorldGenRegistries;
 import net.minecraft.world.gen.Heightmap;
+import net.minecraft.world.gen.blockplacer.SimpleBlockPlacer;
 import net.minecraft.world.gen.blockstateprovider.SimpleBlockStateProvider;
 import net.minecraft.world.gen.feature.*;
 import net.minecraft.world.gen.foliageplacer.BlobFoliagePlacer;
@@ -39,6 +43,9 @@ public class HorizonsFeatures {
     public static final class BlockStates {
         public static final BlockState REDWOOD_LOG = HorizonsBlocks.REDWOOD_LOG.get().getDefaultState();
         public static final BlockState REDWOOD_LEAVES = HorizonsBlocks.REDWOOD_LEAVES.get().getDefaultState();
+
+        public static final BlockState BLACKBERRY_BUSH = HorizonsBlocks.BLACKBERRY_BUSH.get().getDefaultState().with(BlackberryBushBlock.AGE, 3);
+        public static final BlockState GRASS_BLOCK = Blocks.GRASS_BLOCK.getDefaultState();
     }
 
     public static final class Configs {
@@ -56,6 +63,9 @@ public class HorizonsFeatures {
                 new BushFoliagePlacer(FeatureSpread.func_242252_a(2),FeatureSpread.func_242252_a(1), 2),
                 new StraightTrunkPlacer(1, 0, 0), new TwoLayerFeature(0, 0, 0)
         )).func_236702_a_(Heightmap.Type.MOTION_BLOCKING_NO_LEAVES).build();
+
+        public static final BlockClusterFeatureConfig BLACKBERRY_BUSH_PATCH_CONFIG = (new BlockClusterFeatureConfig.Builder(new SimpleBlockStateProvider(BlockStates.BLACKBERRY_BUSH), SimpleBlockPlacer.PLACER)).tries(256).whitelist(ImmutableSet.of(BlockStates.GRASS_BLOCK.getBlock())).func_227317_b_().build();
+
     }
 
     public static final class Configured {
@@ -67,6 +77,9 @@ public class HorizonsFeatures {
         public static final ConfiguredFeature<?, ?> REDWOOD_BUSH = Feature.TREE.withConfiguration(Configs.REDWOOD_BUSH_CONFIG);
 
         public static final ConfiguredFeature<?, ?> TREES_REDWOOD = Feature.RANDOM_SELECTOR.withConfiguration(new MultipleRandomFeatureConfig(ImmutableList.of(REDWOOD_BUSH.withChance(0.4F), LARGE_REDWOOD.withChance(0.325F)), REDWOOD)).withPlacement(Features.Placements.HEIGHTMAP_PLACEMENT).withPlacement(Placement.COUNT_EXTRA.configure(new AtSurfaceWithExtraConfig(17, 0.2F, 1)));
+
+        public static final ConfiguredFeature<?, ?> PATCH_BLACKBERRY_BUSH = Feature.RANDOM_PATCH.withConfiguration(Configs.BLACKBERRY_BUSH_PATCH_CONFIG);
+        public static final ConfiguredFeature<?, ?> PATCH_BLACKBERRY_DECORATED = PATCH_BLACKBERRY_BUSH.withPlacement(Features.Placements.PATCH_PLACEMENT).chance(4);
 
         private static <FC extends IFeatureConfig> void register(String name, ConfiguredFeature<FC, ?> configuredFeature) {
             Registry.register(WorldGenRegistries.CONFIGURED_FEATURE, new ResourceLocation(Horizons.MODID, name), configuredFeature);
@@ -81,6 +94,9 @@ public class HorizonsFeatures {
             register("redwood_bush", REDWOOD_BUSH);
 
             register("trees_redwood", TREES_REDWOOD);
+
+            register("patch_blackberry_bush", PATCH_BLACKBERRY_BUSH);
+            register("patch_blackberry_decorated", PATCH_BLACKBERRY_DECORATED);
         }
     }
 }

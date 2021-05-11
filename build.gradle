@@ -89,6 +89,7 @@ dependencies {
     runtimeOnly fg.deobf("curse.maven:autoreglib-250363:3128555")
     runtimeOnly fg.deobf("curse.maven:quark-243121:3221260")
     runtimeOnly fg.deobf("curse.maven:buzzier-bees-355458:3154937")
+    runtimeOnly fg.deobf("curse.maven:berry-good-355589:3249305")
 
     implementation fg.deobf("com.minecraftabnormals:abnormals-core:${minecraft_version}-${ac_version}")
 }

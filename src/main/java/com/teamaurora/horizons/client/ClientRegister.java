@@ -19,5 +19,8 @@ public class ClientRegister {
     public static void setupRenderLayer() {
         RenderTypeLookup.setRenderLayer(HorizonsBlocks.BRITTLE_PHACELIA.get(), RenderType.getCutout());
         RenderTypeLookup.setRenderLayer(HorizonsBlocks.REDWOOD_SAPLING.get(), RenderType.getCutout());
+
+        RenderTypeLookup.setRenderLayer(HorizonsBlocks.BLACKBERRY_BUSH.get(), RenderType.getCutout());
+        RenderTypeLookup.setRenderLayer(HorizonsBlocks.BLACKBERRY_PIPS.get(), RenderType.getCutout());
     }
 }

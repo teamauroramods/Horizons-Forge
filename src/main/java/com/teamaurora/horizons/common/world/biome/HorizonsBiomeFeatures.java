@@ -40,6 +40,7 @@ public class HorizonsBiomeFeatures {
         DefaultBiomeFeatures.withDisks(builder);
 
         builder.withFeature(GenerationStage.Decoration.VEGETAL_DECORATION, HorizonsFeatures.Configured.TREES_REDWOOD);
+        builder.withFeature(GenerationStage.Decoration.VEGETAL_DECORATION, HorizonsFeatures.Configured.PATCH_BLACKBERRY_DECORATED);
         DefaultBiomeFeatures.withAllForestFlowerGeneration(builder);
         DefaultBiomeFeatures.withDefaultFlowers(builder);
         DefaultBiomeFeatures.withForestGrass(builder);
